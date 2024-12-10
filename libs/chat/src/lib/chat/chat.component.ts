@@ -14,6 +14,7 @@ import { marked } from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TuiLet } from '@taiga-ui/cdk';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MainLayoutComponent } from '../../../../shared/src/lib/layouts/main-layout.component';
 
 @Component({
   selector: 'lib-chat',
@@ -27,6 +28,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     TuiButton,
     TuiLoader,
     TuiLet,
+    MainLayoutComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
