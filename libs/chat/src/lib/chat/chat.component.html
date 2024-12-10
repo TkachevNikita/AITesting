@@ -1,0 +1,51 @@
+<div class="chat">
+  <h1>Написать автотесты</h1>
+  <p>Описание (загрузить файл, сгенерируются тест-кейсы)</p>
+
+  <label tuiInputFiles>
+    <input
+      tuiInputFiles
+      [formControl]="control"
+    />
+    <ng-template let-dragged>
+      <div
+        *ngIf="dragged; else base"
+        class="content"
+      >
+        <tui-avatar
+          appearance="secondary"
+          src="@tui.droplet"
+        />
+        <div>
+          Drop it like it's hot!
+          <br />
+          <br />
+        </div>
+      </div>
+      <ng-template #base>
+        <div class="content">
+          <tui-avatar
+            appearance="secondary"
+            src="@tui.cloud-upload"
+          />
+          <div>
+            Перетащите PDF файл сюда или
+            <a tuiLink>
+              нажмите для загрузки
+            </a>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </label>
+  @if (control.value) {
+    <tui-files class="file-container">
+      <tui-file
+        class="file"
+        state="normal"
+        [file]="control.value"
+        [showDelete]="control.enabled"
+      />
+    </tui-files>
+  }
+</div>
