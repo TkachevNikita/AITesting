@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@aitesting/chat": ["libs/chat/src/index.ts"],
+      "@aitesting/core": ["libs/core/src/index.ts"],
       "@aitesting/shared": ["libs/shared/src/index.ts"]
     }
   },

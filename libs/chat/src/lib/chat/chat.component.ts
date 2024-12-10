@@ -1,8 +1,19 @@
+import { ChatService } from '@aitesting/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TuiLink } from '@taiga-ui/core';
-import { TuiAvatar, TuiFileLike, TuiFiles, TuiInputFiles } from '@taiga-ui/kit';
+import { TuiButton, TuiLink, TuiLoader } from '@taiga-ui/core';
+import { TuiAvatar, TuiFiles, TuiInputFiles } from '@taiga-ui/kit';
+import { Observable } from 'rxjs';
+import { marked } from 'marked';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TuiLet } from '@taiga-ui/cdk';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'lib-chat',
@@ -13,11 +24,39 @@ import { TuiAvatar, TuiFileLike, TuiFiles, TuiInputFiles } from '@taiga-ui/kit';
     TuiLink,
     ReactiveFormsModule,
     TuiFiles,
+    TuiButton,
+    TuiLoader,
+    TuiLet,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ChatService],
 })
 export class ChatComponent {
-  protected readonly control = new FormControl<TuiFileLike | null>(null);
+  private readonly chatService: ChatService = inject(ChatService);
+  private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
+  private readonly destroyRef = inject(DestroyRef);
+
+  protected htmlContent: SafeHtml = '';
+  protected readonly control = new FormControl<File | null>(null);
+  protected readonly isLoading$: Observable<boolean> = this.chatService.loading;
+
+  public generate(): void {
+    const formData = new FormData();
+
+    formData.append('technicalTask', this.control.value!);
+    this.chatService
+      .generateTestTask(formData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (markdown: string) => {
+          const rawHtml = marked(markdown);
+          this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(
+            rawHtml as string,
+          );
+          console.log(this.htmlContent);
+        },
+        error: (err) => console.error('Error:', err),
+      });
+  }
 }
