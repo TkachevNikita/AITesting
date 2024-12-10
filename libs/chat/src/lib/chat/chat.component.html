@@ -1,0 +1,76 @@
+<libs-shared-main-layout>
+  <ng-container *tuiLet="isLoading$ | async as isLoading">
+    <div class="chat" *ngIf="!isLoading">
+      <h1>Написать автотесты</h1>
+      <p>Описание (загрузить файл, сгенерируются тест-кейсы)</p>
+
+      <label tuiInputFiles>
+        <input
+          tuiInputFiles
+          [formControl]="control"
+        />
+        <ng-template let-dragged>
+          <div
+            *ngIf="dragged; else base"
+            class="content"
+          >
+            <tui-avatar
+              appearance="secondary"
+              src="@tui.droplet"
+            />
+            <div>
+              Drop it like it's hot!
+              <br />
+              <br />
+            </div>
+          </div>
+          <ng-template #base>
+            <div class="content">
+              <tui-avatar
+                appearance="secondary"
+                src="@tui.cloud-upload"
+              />
+              <div>
+                Перетащите PDF файл сюда или
+                <a tuiLink>
+                  нажмите для загрузки
+                </a>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </label>
+      @if (control.value) {
+        <tui-files class="file-container">
+          <tui-file
+            class="file"
+            state="normal"
+            [file]="control.value"
+            [showDelete]="control.enabled"
+          />
+        </tui-files>
+      }
+      <button
+        tuiButton
+        type="button"
+        (click)="generate()"
+        [disabled]="!control.value"
+      >
+        Отправить
+      </button>
+    </div>
+    @if (isLoading) {
+      <div class="loader">
+        <tui-loader
+          size="xxl"
+          [style.margin-top]="'20px'"
+        />
+        <span>
+        Выполнятеся обработка запроса
+      </span>
+      </div>
+    } @else if (htmlContent) {
+      <div class="response" [innerHTML]="htmlContent"></div>
+    }
+  </ng-container>
+</libs-shared-main-layout>

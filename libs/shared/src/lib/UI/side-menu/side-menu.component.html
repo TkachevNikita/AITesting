@@ -1,0 +1,41 @@
+<div class="sidebar" [class.active]="isOpen">
+  <button
+    class="toggle-btn"
+    appearance="secondary-destructive"
+    iconStart="@tui.step-forward"
+    size="xs"
+    tuiIconButton
+    type="button"
+    (click)="toggleMenu()"
+  >
+    expand
+  </button>
+  <nav class="sidebar__nav">
+    <button
+      size="s"
+      tuiButton
+      type="button"
+      [style.margin-left]="'10px'"
+      [style.margin-right]="'10px'"
+      [style.margin-top]="'20px'"
+    >
+      Новый запрос
+    </button>
+    <ul class="sidebar__nav--list">
+      <li class="sidebar__nav--item">
+        <a href="#" class="sidebar__nav--link">
+          Текущий запрос
+        </a>
+        <a href="#" class="sidebar__nav--link">
+          запрос №2323
+        </a>
+        <a href="#" class="sidebar__nav--link">
+          Запрос №23232
+        </a>
+        <a href="#" class="sidebar__nav--link">
+          Запрос №232323
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

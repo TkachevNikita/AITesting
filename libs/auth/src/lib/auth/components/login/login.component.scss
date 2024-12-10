@@ -1,0 +1,23 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 400px;
+
+  &__title {
+    text-align: center;
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  &__logo {
+    align-self: center;
+  }
+
+  &__message {
+    color: #ffffff;
+    align-self: center;
+    font-size: 16px;
+  }
+}
