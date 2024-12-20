@@ -16,7 +16,7 @@ export class ChatService {
     this.isLoading$.next(true);
 
     return this.http
-      .post('https://localhost:7236/generatetz', file, {
+      .post('http://localhost:8000/generatetz', file, {
         responseType: 'text',
       })
       .pipe(finalize(() => this.isLoading$.next(false)));

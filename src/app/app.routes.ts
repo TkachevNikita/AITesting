@@ -11,4 +11,8 @@ export const appRoutes: Route[] = [
     path: 'auth/login',
     component: AuthComponent,
   },
+  {
+    path: '**',
+    component: AuthComponent,
+  },
 ];
