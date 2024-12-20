@@ -4,4 +4,4 @@ COPY . .
 RUN npm install && \
     npm run build
 FROM nginx:stable
-COPY --from=build /src/dist/AITesting/brr /usr/share/nginx/html
+COPY --from=build /src/dist/AITesting/browser /usr/share/nginx/html
