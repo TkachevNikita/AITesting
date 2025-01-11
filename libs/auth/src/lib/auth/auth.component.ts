@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
-import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'lib-auth',
-  imports: [CommonModule, LoginComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
   providers: [AuthService],

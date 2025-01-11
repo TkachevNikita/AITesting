@@ -13,14 +13,7 @@ import {
   TuiTextfield,
 } from '@taiga-ui/core';
 import { TuiInputModule } from '@taiga-ui/legacy';
-import {
-  catchError,
-  debounceTime,
-  Observable,
-  switchMap,
-  tap,
-  timer,
-} from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -41,7 +34,7 @@ import { AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss', '../../auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {

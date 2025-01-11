@@ -1,3 +1,7 @@
+:host {
+  height: auto !important;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -6,18 +10,6 @@
   border: 1px solid #ffffff;
   padding: 20px 30px;
   border-radius: 32px;
-
-  &__title {
-    text-align: center;
-    color: #ffffff;
-    font-size: 24px;
-    margin-bottom: 30px;
-    margin-top: 0;
-  }
-
-  &__logo {
-    align-self: center;
-  }
 
   &__message {
     color: #ffffff;

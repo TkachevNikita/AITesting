@@ -44,10 +44,15 @@ export class AuthService {
     return this.http.post<void>(`${this.baseUrl}/verify-email`, verifyData);
   }
 
-  public sentVerification(email: string): Observable<void> {
+  public sendVerification(email: string): Observable<void> {
     return this.http.post<void>(
       `${this.baseUrl}/send-verification-code`,
-      email,
+      JSON.stringify(email),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
     );
   }
 }
