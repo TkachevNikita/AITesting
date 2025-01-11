@@ -7,14 +7,13 @@
   <h2 class="login-form__title">Авторизация</h2>
   <tui-input
     tuiTextfieldSize="s"
-    formControlName="email"
+    formControlName="login"
     [tuiTextfieldCleaner]="true"
   >
-    Введите email
+    Введите логин
     <input
-      autocomplete="email"
       tuiTextfieldLegacy
-      type="email"
+      type="text"
     />
   </tui-input>
   <tui-input
@@ -29,7 +28,7 @@
       type="password"
     />
   </tui-input>
-  <button (click)="login()" tuiButton>
+  <button type="button" [loading]="isLoading$ | async" (click)="login()" tuiButton>
     Войти
   </button>
   <div class="login-form__message">
