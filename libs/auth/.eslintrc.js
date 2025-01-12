@@ -1,18 +1,11 @@
-{
-  "extends": ["../../.eslintrc.base.json"],
-  "ignorePatterns": ["!**/*"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
-    }
-  ]
-}
+const path = require('path');
+
+module.exports = {
+  extends: '../../.eslintrc.js',
+  parserOptions: {
+    project: path.resolve(__dirname, '../../tsconfig.eslint.json'),
+  },
+  rules: {
+    'i18n/no-russian-character': 'off',
+  },
+};

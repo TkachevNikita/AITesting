@@ -1,0 +1,46 @@
+:host {
+  height: auto !important;
+}
+
+.register {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 400px;
+  border: 1px solid #ffffff;
+  padding: 20px 30px;
+  border-radius: 32px;
+
+  &__message {
+    color: #ffffff;
+    align-self: center;
+    font-size: 16px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &--text {
+      color: #ffffff;
+      text-align: center;
+      margin: 0;
+    }
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 40px;
+    }
+  }
+
+  &__stepper {
+    justify-content: space-between;
+  }
+}
+
+._active {
+  color: #ffffff !important;
+}

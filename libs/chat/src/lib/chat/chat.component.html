@@ -70,6 +70,7 @@
       </span>
       </div>
     } @else if (htmlContent) {
+      <button tuiButton (click)="saveAsPdf()">Скачать</button>
       <div class="response" [innerHTML]="htmlContent"></div>
     }
   </ng-container>

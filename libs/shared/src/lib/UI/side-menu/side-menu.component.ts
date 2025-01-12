@@ -1,3 +1,4 @@
+import { ChatService } from '@aitesting/core';
 import {
   animate,
   state,
@@ -5,12 +6,17 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { TuiButton } from '@taiga-ui/core';
+import { Observable, take } from 'rxjs';
+
+import { IRequest } from '../../interfaces/history.interface';
 
 @Component({
   selector: 'lib-shared-side-menu',
-  imports: [TuiButton],
+  imports: [TuiButton, AsyncPipe],
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,9 +39,21 @@ import { TuiButton } from '@taiga-ui/core';
   ],
 })
 export class SideMenuComponent {
+  private readonly router: Router = inject(Router);
+  private readonly chatService: ChatService = inject(ChatService);
+
+  public requests$: Observable<IRequest[]> = this.chatService.requests;
   public isOpen = true;
 
-  public toggleMenu() {
+  public toggleMenu(): void {
     this.isOpen = !this.isOpen;
+  }
+
+  public navigateToRequest(id: string): void {
+    this.router.navigate([`/chat/${id}`]);
+  }
+
+  public removeRequest(id: string): void {
+    this.chatService.removeRequest(id).pipe(take(1)).subscribe();
   }
 }

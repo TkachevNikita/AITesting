@@ -7,8 +7,19 @@
     </a>
     <tui-avatar
       size="m"
+      [tuiDropdown]="more"
+      tuiDropdownOpen
       [style.margin-left]="'auto'"
-      src="https://www.nchti.ru/wp-content/images/profile-anonymous2.png"
+      [style.cursor]="'pointer'"
+      src="https://td-betacom.ru/wp-content/uploads/2021/04/profile-anonymous2.png"
     />
+    <ng-template #more let-close>
+      <tui-data-list tuiDataListDropdownManager>
+        <button tuiOption type="button" size="xs" (click)="logout()">
+          Выйти
+        </button>
+      </tui-data-list>
+    </ng-template>
+
   </div>
 </header>

@@ -15,6 +15,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TuiLet } from '@taiga-ui/cdk';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MainLayoutComponent } from '../../../../shared/src/lib/layouts/main-layout.component';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'lib-chat',
@@ -31,7 +33,7 @@ import { MainLayoutComponent } from '../../../../shared/src/lib/layouts/main-lay
     MainLayoutComponent,
   ],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss',
+  styleUrls: ['./chat.component.scss'],
   providers: [ChatService],
 })
 export class ChatComponent {
@@ -59,6 +61,24 @@ export class ChatComponent {
           console.log(this.htmlContent);
         },
         error: (err) => console.error('Error:', err),
+      });
+  }
+
+  public saveAsPdf(): void {
+    const content = document.querySelector('.response') as HTMLElement;
+
+    html2canvas(content)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('generated-content.pdf');
+      })
+      .catch((error) => {
+        console.error('Ошибка при создании PDF:', error);
       });
   }
 }

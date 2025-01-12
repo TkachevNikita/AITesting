@@ -1,14 +1,36 @@
-import { AuthComponent } from '@aitesting/auth';
-import { ChatComponent } from '@aitesting/chat';
 import type { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
-    path: 'chat',
-    component: ChatComponent,
+    path: '',
+    children: [
+      {
+        path: '',
+        redirectTo: 'auth',
+        pathMatch: 'full',
+      },
+      {
+        path: 'auth',
+        loadChildren: async () =>
+          import('@aitesting/auth').then((r) => r.authRouter),
+      },
+      {
+        path: 'chat',
+        loadComponent: async () =>
+          import('@aitesting/chat').then((c) => c.ChatComponent),
+      },
+    ],
   },
-  {
-    path: 'auth/login',
-    component: AuthComponent,
-  },
+  // {
+  //   path: 'chat',
+  //   component: ChatComponent,
+  // },
+  // {
+  //   path: 'auth',
+  //   component: AuthComponent,
+  // },
+  // {
+  //   path: '**',
+  //   component: AuthComponent,
+  // },
 ];
