@@ -22,20 +22,23 @@
       Новый запрос
     </button>
     <ul class="sidebar__nav--list">
-      <li class="sidebar__nav--item">
-        <a href="#" class="sidebar__nav--link">
-          Текущий запрос
-        </a>
-        <a href="#" class="sidebar__nav--link">
-          запрос №2323
-        </a>
-        <a href="#" class="sidebar__nav--link">
-          Запрос №23232
-        </a>
-        <a href="#" class="sidebar__nav--link">
-          Запрос №232323
-        </a>
-      </li>
+        @for (request of requests$ | async; track request.id) {
+          <li class="sidebar__nav--item">
+            <a (click)="navigateToRequest(request.id)" class="sidebar__nav--link">
+              {{request.fileContent.slice(0, 13)}}...
+            </a>
+            <button
+              class="sidebar__nav--remove"
+              tuiIconButton
+              size="xs"
+              iconStart="@tui.trash"
+              [style.background]="'red'"
+              (click)="removeRequest(request.id)"
+            >
+              delete
+            </button>
+          </li>
+        }
     </ul>
   </nav>
 </div>

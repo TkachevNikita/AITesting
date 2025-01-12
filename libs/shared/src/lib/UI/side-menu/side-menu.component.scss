@@ -29,20 +29,26 @@
     }
 
     &--item {
-      margin: 20px 0;
+      margin: 10px 0;
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      color: #ecf0f1;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      padding: 0 10px;
     }
 
     &--link {
       text-decoration: none;
-      color: #ecf0f1;
       font-size: 18px;
       font-weight: bold;
       padding: 10px 20px;
       display: block;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: pointer;
     }
 
-    &--link:hover {
+    &--item:hover {
       background-color: #526ed3;
     }
   }
