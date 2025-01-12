@@ -20,6 +20,11 @@ export const authRouter: Route[] = [
             (c) => c.RegisterComponent,
           ),
       },
+      {
+        path: '**',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      },
     ],
   },
 ];
