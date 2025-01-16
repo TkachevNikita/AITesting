@@ -611,6 +611,21 @@ License: "Apache-2.0"
    limitations under the License.
 
 --------------------------------------------------------------------------------
+Package: @maskito/core
+License: "Apache-2.0"
+
+
+--------------------------------------------------------------------------------
+Package: @maskito/angular
+License: "Apache-2.0"
+
+
+--------------------------------------------------------------------------------
+Package: @maskito/kit
+License: "Apache-2.0"
+
+
+--------------------------------------------------------------------------------
 Package: @taiga-ui/kit
 License: "Apache-2.0"
 
@@ -804,21 +819,6 @@ License: "Apache-2.0"
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
---------------------------------------------------------------------------------
-Package: @maskito/core
-License: "Apache-2.0"
-
-
---------------------------------------------------------------------------------
-Package: @maskito/angular
-License: "Apache-2.0"
-
-
---------------------------------------------------------------------------------
-Package: @maskito/kit
-License: "Apache-2.0"
-
 
 --------------------------------------------------------------------------------
 Package: @taiga-ui/legacy
