@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,16 +12,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiButton, TuiLink, TuiTextfield } from '@taiga-ui/core';
-import { TuiStepper } from '@taiga-ui/kit';
+import { TuiButtonLoading, TuiStepper } from '@taiga-ui/kit';
 import {
   TuiInputDateModule,
   TuiInputModule,
   TuiInputNumberModule,
   TuiInputPhoneModule,
 } from '@taiga-ui/legacy';
+import { Observable, take } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -28,9 +30,11 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   selector: 'lib-auth-register',
   imports: [
+    AsyncPipe,
     ReactiveFormsModule,
     RouterLink,
     TuiButton,
+    TuiButtonLoading,
     TuiInputDateModule,
     TuiInputModule,
     TuiInputNumberModule,
@@ -46,7 +50,9 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent {
   private readonly authService: AuthService = inject(AuthService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
+  private readonly router: Router = inject(Router);
 
+  protected isLoading$: Observable<boolean> = this.authService.loading;
   protected activeStepIndex = 0;
   protected verifyCodeSended = false;
 
@@ -82,6 +88,25 @@ export class RegisterComponent {
         email: this.registerForm.controls['email'].value,
       })
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe({
+        next: () => this.activeStepIndex++,
+      });
+  }
+
+  public register(): void {
+    const userData = this.registerForm.value;
+
+    delete userData.code;
+
+    this.authService
+      .register({
+        ...userData,
+        roleIds: null,
+        birthDate: userData.date.toString('DNY', '-'),
+      })
+      .pipe(take(1))
+      .subscribe({
+        next: async () => this.router.navigate(['/chat']),
+      });
   }
 }

@@ -10,7 +10,7 @@ import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  private readonly baseUrl: string = 'http://localhost:8000';
+  private readonly baseUrl: string = 'http://51.250.113.12:30005';
   private readonly http: HttpClient = inject(HttpClient);
   private readonly isLoading$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
@@ -41,18 +41,26 @@ export class AuthService {
   }
 
   public verifyEmail(verifyData: IEmailVerifyRequest): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/verify-email`, verifyData);
+    this.isLoading$.next(true);
+
+    return this.http
+      .post<void>(`${this.baseUrl}/verify-email`, verifyData)
+      .pipe(finalize(() => this.isLoading$.next(false)));
   }
 
   public sendVerification(email: string): Observable<void> {
-    return this.http.post<void>(
-      `${this.baseUrl}/send-verification-code`,
-      JSON.stringify(email),
-      {
-        headers: {
-          'Content-Type': 'application/json',
+    this.isLoading$.next(true);
+
+    return this.http
+      .post<void>(
+        `${this.baseUrl}/send-verification-code`,
+        JSON.stringify(email),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    );
+      )
+      .pipe(finalize(() => this.isLoading$.next(false)));
   }
 }
