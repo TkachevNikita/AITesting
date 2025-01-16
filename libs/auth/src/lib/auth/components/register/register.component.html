@@ -1,3 +1,5 @@
+@let isLoading = isLoading$ | async;
+
 <div class="register">
   <div class="auth__logo">
     <svg width="90" height="90" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,12 +15,14 @@
         stepState="pass"
         tuiStep
         type="button"
+        [disabled]="activeStepIndex === 1"
       >
         Подтверждение почты
       </button>
       <button
         tuiStep
         type="button"
+        [disabled]="activeStepIndex === 0"
       >
         Завершение
       </button>
@@ -43,14 +47,14 @@
               />
             </tui-textfield>
             @if (verifyCodeSended) {
-              <button type="button" tuiButton>
+              <button type="button" [loading]="isLoading" tuiButton (click)="verifyEmail()">
                 Подтвердить
               </button>
               <p class="register__form--text">
                 На адрес <strong>{{registerForm.controls['email'].value}}</strong> было отправлено письмо с верификационным кодом
               </p>
             } @else {
-              <button type="button" (click)="sendVerifyCode()" tuiButton>
+              <button type="button" [loading]="isLoading" (click)="sendVerifyCode()" tuiButton>
                 Отправить код подтверждения
               </button>
             }
@@ -99,7 +103,7 @@
                 type="password"
               />
             </tui-input>
-            <button type="button" tuiButton>
+            <button type="button" [loading]="isLoading" (click)="register()" [disabled]="registerForm.invalid" tuiButton>
               Зарегистрироваться
             </button>
           </div>
