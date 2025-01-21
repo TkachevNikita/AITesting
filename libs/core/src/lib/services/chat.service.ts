@@ -13,7 +13,7 @@ import {
 
 @Injectable()
 export class ChatService {
-  private readonly baseUrl = 'http://51.250.113.12:31005';
+  private readonly baseUrl = '//51.250.113.12:31005';
   private readonly http: HttpClient = inject(HttpClient);
   private readonly isLoading$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);

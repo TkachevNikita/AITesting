@@ -10,7 +10,7 @@ import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  private readonly baseUrl: string = 'http://51.250.113.12:30005';
+  private readonly baseUrl: string = '//51.250.113.12:30005';
   private readonly http: HttpClient = inject(HttpClient);
   private readonly isLoading$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
