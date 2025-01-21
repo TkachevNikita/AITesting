@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TuiButton } from '@taiga-ui/core';
 import { Observable, take } from 'rxjs';
 
@@ -16,7 +16,7 @@ import { IRequest } from '../../interfaces/history.interface';
 
 @Component({
   selector: 'lib-shared-side-menu',
-  imports: [TuiButton, AsyncPipe],
+  imports: [TuiButton, AsyncPipe, RouterLink],
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

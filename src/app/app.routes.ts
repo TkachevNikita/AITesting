@@ -15,22 +15,10 @@ export const appRoutes: Route[] = [
           import('@aitesting/auth').then((r) => r.authRouter),
       },
       {
-        path: 'chat',
+        path: 'chat/:id',
         loadComponent: async () =>
           import('@aitesting/chat').then((c) => c.ChatComponent),
       },
     ],
   },
-  // {
-  //   path: 'chat',
-  //   component: ChatComponent,
-  // },
-  // {
-  //   path: 'auth',
-  //   component: AuthComponent,
-  // },
-  // {
-  //   path: '**',
-  //   component: AuthComponent,
-  // },
 ];

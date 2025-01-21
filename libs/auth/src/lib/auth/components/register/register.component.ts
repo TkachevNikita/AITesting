@@ -106,7 +106,7 @@ export class RegisterComponent {
       })
       .pipe(take(1))
       .subscribe({
-        next: async () => this.router.navigate(['/chat']),
+        next: async () => this.router.navigate(['/chat/new']),
       });
   }
 }

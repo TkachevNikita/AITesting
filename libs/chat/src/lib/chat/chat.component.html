@@ -4,6 +4,7 @@
       <h1>Написать автотесты</h1>
       <p>Описание (загрузить файл, сгенерируются тест-кейсы)</p>
 
+      @if (!htmlContent) {
       <label tuiInputFiles>
         <input
           tuiInputFiles
@@ -40,6 +41,7 @@
           </ng-template>
         </ng-template>
       </label>
+      }
       @if (control.value) {
         <tui-files class="file-container">
           <tui-file
@@ -50,14 +52,16 @@
           />
         </tui-files>
       }
-      <button
-        tuiButton
-        type="button"
-        (click)="generate()"
-        [disabled]="!control.value"
-      >
-        Отправить
-      </button>
+      @if (!htmlContent) {
+        <button
+          tuiButton
+          type="button"
+          (click)="generate()"
+          [disabled]="!control.value"
+        >
+          Отправить
+        </button>
+      }
     </div>
     @if (isLoading) {
       <div class="loader">

@@ -4,6 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   finalize,
+  map,
   Observable,
   ReplaySubject,
   shareReplay,
@@ -40,14 +41,23 @@ export class ChatService {
     return this.http.get<IRequest[]>(`${this.baseUrl}/tz-history`);
   }
 
-  public generateTestTask(file: FormData): Observable<string> {
+  public generateTestTask(file: FormData): Observable<IRequest> {
     this.isLoading$.next(true);
 
     return this.http
-      .post(`${this.baseUrl}/generatetz`, file, {
-        responseType: 'text',
-      })
+      .post<IRequest>(`${this.baseUrl}/generatetz`, file)
       .pipe(finalize(() => this.isLoading$.next(false)));
+  }
+
+  public getRequestById(id: string): Observable<IRequest | undefined> {
+    this.isLoading$.next(true);
+
+    return this.requests.pipe(
+      map((requests: IRequest[]) =>
+        requests.find((request) => request.id === id),
+      ),
+      tap(() => this.isLoading$.next(false)),
+    );
   }
 
   public removeRequest(id: string): Observable<void> {

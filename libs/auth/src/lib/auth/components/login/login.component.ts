@@ -62,7 +62,7 @@ export class LoginComponent {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
-        next: () => this.router.navigateByUrl('/chat'),
+        next: () => this.router.navigateByUrl('/chat/new'),
       });
   }
 }
